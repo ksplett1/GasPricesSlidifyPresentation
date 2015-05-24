@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset='utf-8'>
+	<title>Gas Prices Linear Regression Model</title>
+	<meta name="description" content="Gas Prices Linear Regression Model">
+	<meta name="author" content="Katherine Splett">
+	<meta name="generator" content="slidify" />
+	
+	<!-- LOAD STYLE SHEETS -->
+	<link rel="stylesheet" href="libraries/frameworks/html5slides/default/styles.css">
+	<link rel="stylesheet" href="libraries/highlighters/highlight.js/css/zenburn.css" />  <link rel="stylesheet" href = "assets/css/custom.css">
+<link rel="stylesheet" href = "assets/css/ribbons.css">
+  
+</head>
+<body style='display: none'>
+	<section class='slides layout-regular template-regular'>
+     <article class="" id="slide-1" style="background:;">
+  <h3></h3>
+  <!-- from http://html5hub.com/centering-all-the-directions/
+     44 years ago we put a man on the moon, yet
+     we still can't vertically centre things in CSS -->
+
+<style>
+  #outer { width: 600 px; height: 560px; color:gray; position:relative; }
+  #inner { left:50%; top:50%; transform:translate(-50%,-50%); -webkit-transform:translate(-50%,-50%);position:absolute; }
+  #smaller {font-size : 16px; font-family:verdana}
+</style>
+
+<div id="outer"><div id="inner">
+
+Linear Regression: Gas Prices<br/><br/>
+
+<p id="smaller">
+Project: Shiny Application and Slidify Presentation <br/>
+Coursera Data Product Course (Johns Hopkins) <br/>
+Katherine Splett <br/>
+May 24, 2015
+</p>
+
+</div></div>
+
+</article>
+
+<article class="nobackground" id="slide-2" style="background:;">
+  <h3>Project Objectives</h3>
+  <ul>
+<li><p>Develop Shiny Application</p>
+
+<ul>
+<li>Linear Regression Model for Gas Prices</li>
+<li>Model improvement using an \(\Large x^2\) term</li>
+</ul></li>
+<li><p>Create Presentation using Slidify</p>
+
+<ul>
+<li>done in Slidify or Rstudio Presenter</li>
+<li>hosted on github or Rpubs</li>
+<li>embedded R code </li>
+<li>5 pages</li>
+</ul></li>
+</ul>
+
+</article>
+
+<article class="" id="slide-3" style="background:;">
+  <h3>Shiny Application: Gas Prices</h3>
+  <ul>
+<li>Run:  <a href="https://ksplett1.shinyapps.io/code">https://ksplett1.shinyapps.io/code</a></li>
+<li>Code: <a href="https://github.com/ksplett1/GasPrices">https://github.com/ksplett1/GasPrices</a></li>
+</ul>
+
+<div style="text-align: center;vertical-align: middle;"><br/>
+<img src="assets/img/shinyapp.png" alt="Shiny Application" height="360">
+</div>
+
+</article>
+
+<article class="" id="slide-4" style="background:;">
+  <h3>Linear Regression Model without \(\Large x^2\) term</h3>
+  <p>\[
+Y_i = \beta_0 + \beta_1 X_i + \epsilon_{i}
+\]</p>
+
+<pre><code>## Loading required package: doBy
+## Loading required package: survival
+</code></pre>
+
+<pre><code class="r">summary(fit)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = avg ~ ix, data = g)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7624 -0.3438 -0.0191  0.4541  0.7758 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 0.457720   0.168370   2.719   0.0108 *  
+## ix          0.072184   0.008905   8.106 4.76e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.4651 on 30 degrees of freedom
+## Multiple R-squared:  0.6865, Adjusted R-squared:  0.6761 
+## F-statistic: 65.71 on 1 and 30 DF,  p-value: 4.764e-09
+</code></pre>
+
+</article>
+
+<article class="smallcode" id="slide-5" style="background:;">
+  <h3>Improved Linear Regression Model with \(\Large x^2\) term</h3>
+  <p>\[
+Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + \epsilon_{i}
+\]</p>
+
+<style>
+  #smallerfont {font-size : 16px}
+</style>
+
+<p id=smallerfont> note: decrease in Residual standard error when $\Large X^2$ term included </p>
+
+<pre><code class="r">summary(fit)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = avg ~ ix + ixsq, data = g)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -0.74531 -0.08001  0.02169  0.10218  0.68738 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  1.3974395  0.1410351   9.908 8.13e-11 ***
+## ix          -0.0936492  0.0197035  -4.753 5.04e-05 ***
+## ixsq         0.0050252  0.0005793   8.675 1.49e-09 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2495 on 29 degrees of freedom
+## Multiple R-squared:  0.9128, Adjusted R-squared:  0.9068 
+## F-statistic: 151.8 on 2 and 29 DF,  p-value: 4.331e-16
+</code></pre>
+
+</article>
+
+  </section>
+</body>
+  <!-- LOAD JAVASCRIPTS  -->
+	<script src='libraries/frameworks/html5slides/default/slides.js'></script>
+	<!-- MathJax: Fall back to local if CDN offline but local image fonts are not supported (saves >100MB) -->
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({
+	    tex2jax: {
+	      inlineMath: [['$','$'], ['\\(','\\)']],
+	      processEscapes: true
+	    }
+	  });
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+	<!-- <script src="https://c328740.ssl.cf1.rackcdn.com/mathjax/2.0-latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script> -->
+	<script>window.MathJax || document.write('<script type="text/x-mathjax-config">MathJax.Hub.Config({"HTML-CSS":{imageFont:null}});<\/script><script src="libraries/widgets/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"><\/script>')
+</script>
+<!-- LOAD HIGHLIGHTER JS FILES -->
+	<script src="libraries/highlighters/highlight.js/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	<!-- DONE LOADING HIGHLIGHTER JS FILES -->
+	 
+	</html>
